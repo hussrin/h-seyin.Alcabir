@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="C:\Users\hussein aljaber\Desktop\journal.js">
+        // 1. دالة لحساب عدد مرات حدوث حدث معين
+function eventRep(eventName) {
+  let count = 0;
+
+  // استخدم Set لضمان عدم التكرار
+  JOURNAL.forEach(entry => {
+    const eventsSet = new Set(entry.events);
+    if (eventsSet.has(eventName)) {
+      count++;
+    }
+  });
+
+  console.log(`The event "${eventName}" occurred ${count} times.`);
+  return count;
+}
+
+// 2. دالة لعرض أكثر الأحداث شيوعًا بناءً على عدد محدد
+function showEvents(n) {
+  const eventMap = new Map();
+
+  // حساب تكرار الأحداث باستخدام Map
+  JOURNAL.forEach(entry => {
+    entry.events.forEach(event => {
+      eventMap.set(event, (eventMap.get(event) || 0) + 1);
+    });
+  });
+
+  // تحويل الـ Map إلى Array ثم الترتيب بناءً على عدد التكرارات
+  const sortedEvents = [...eventMap.entries()].sort((a, b) => b[1] - a[1]);
+
+  console.log(`Top ${n} most frequent events:`);
+  for (let i = 0; i < n && i < sortedEvents.length; i++) {
+    console.log(`${sortedEvents[i][0]} - ${sortedEvents[i][1]} times`);
+  }
+}
+
+// تجريب الدوال
+eventRep("pizza");
+showEvents(3);
+
+
+
+
+    </script>
+    
+</body>
+</html>
